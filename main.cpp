@@ -7,79 +7,76 @@
 /* 
  * File:   main.cpp
  * Author: Elaheh Aghaarabi
+ generate 20 random numbers fpr an array between 1 and 100 and passes the array to the function to print it in reverse order, find the max and min
  *
- * Created on October 23, 2019, 7:29 PM
+ * Created on October 16, 2019, 7:41 PM
  */
 
 #include <iostream>
-#include <fstream>
-#include <string>
+#include <ctime>
+#include <cstdlib>
 
 using namespace std;
-void sortArray(string arr[],int size);
+void printArray (int a[], int size);
+void printArrayReverse (int a[], int size);
+int maxSearch (int a[], int size);
+int minSearch (int a[], int size);
 
 /*
  * 
  */
 int main() {
+    int randNum [20] , max=100 , min=1, maxNum , minNum;
     
-    ifstream  instream;
-    string fruit[30];
-    int i;
-    instream.open("fruits.txt");
+    srand(time(0));
     
-     if (instream.fail())
-   {
-       cout << "input file opening failed" << endl;
-       exit(1);
-   }
-    cout << "before sorting:"<< endl;
-    do
-    {
+    for (int i=0; i<=19 ; i++)
+    randNum[i]=rand()%(max+min-1)+min;
+    printArray(randNum,20);
+    printArrayReverse(randNum,20);
+    maxNum= maxSearch (randNum, 20);
+    cout << "max number is: " << maxNum << endl;
+    minNum= minSearch (randNum, 20);
+    cout << "min number is: " << minNum << endl;
     
-    for  (i=0;i<30;i++)
-    {
-    instream >> fruit[i];
-    cout << fruit[i] << ", ";
     
-    }
-    
-    }
-    while (!(instream.eof()));
-    
-    cout << endl;
-    
-    sortArray(fruit, 30 );
-    cout << "after sorting:"<< endl;
-    for (i=0;i<30;i++)
-    {
-        cout << fruit[i] << ", ";
-    }
-    
-
     return 0;
 }
-
-void sortArray(string arr[],int size)
+void printArray (int a[], int size)
 {
-    string temp;
-
-    for (int i=0; i < size ; i++)
+    cout << "Random Array : [" ;
+ for (int i=0; i< size ; i++)  
+ cout <<a[i] << " ";
+    cout <<"]"<<endl;
+ 
+}
+void printArrayReverse (int a[], int size)
+{
+    cout << "Random Array in reverse : [" ;
+   for (int i=size-1; i >=0 ; i--)  
+   cout  <<a[i] << " ";
+    cout <<"]"<<endl;
+}
+int maxSearch (int a[], int size)
+{
+    int max =a[0];
+    for (int i=1; i < size ; i++) 
     {
-        for(int j=i+1; j<size ; j++)
-         {   
-        if (arr[i] > arr[j])
-        {
-            temp=arr[i];
-            arr[i]=arr[j];
-            arr[j]=temp;
-        }
+        if (max < a[i])
+            max = a[i];
         
-            
     }
+    return max;
+    
 }
-}
-            
-            
+int minSearch (int a[], int size)
+{ int min =a[0];
+    for (int i=1; i < size ; i++) 
+    {
+        if (min > a[i])
+            min = a[i];
         
+    }
+    return min;
+}
 
